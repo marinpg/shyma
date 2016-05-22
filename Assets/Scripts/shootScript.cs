@@ -11,6 +11,7 @@ public class shootScript : MonoBehaviour {
     private Vector2 currentSwipe;
     private bool isMoving;
 
+    public GameObject[] trashTypes;
     public Text scoreText;
     private int score;
 
@@ -65,6 +66,7 @@ public class shootScript : MonoBehaviour {
             rb.angularVelocity = 0;
             gameObject.transform.position = new Vector3(0, -4, 0);
             gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+            switchTrashType();
         }
 
         if (other.gameObject.CompareTag("Boundaries"))
@@ -84,6 +86,15 @@ public class shootScript : MonoBehaviour {
     void setScoreText()
     {
         scoreText.text = score.ToString();
+    }
+
+    void switchTrashType()
+    {
+        int type;
+        type = Random.Range(0,2);
+        trashTypes[type].SetActive(true);
+        gameObject.SetActive(false);
+        
     }
 
 }
