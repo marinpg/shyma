@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class YoshiBehaviour : MonoBehaviour {
+public class shootScript : MonoBehaviour {
 
     public Rigidbody2D rb;
     public CircleCollider2D collision;
@@ -10,21 +11,28 @@ public class YoshiBehaviour : MonoBehaviour {
     private Vector2 currentSwipe;
     private bool isMoving;
 
+    public Text scoreText;
+    private int score;
+
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         collision.enabled = false;
         rb.gravityScale = 0;
         isMoving = false;
+        score = 0;
+        setScoreText();
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (transform.position.y >= 4)
         {
             collision.enabled = true;
         }
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
@@ -34,8 +42,29 @@ public class YoshiBehaviour : MonoBehaviour {
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
             currentSwipe.Normalize();
             rb.gravityScale = 1;
-            rb.AddForce(currentSwipe * 700);
+            rb.AddForce(currentSwipe * 650);
             isMoving = true;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Placeholder"))
+        {
+            score++;
+            setScoreText();
+            isMoving = false;
+            collision.enabled = false;
+            rb.gravityScale = 0;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0;
+            gameObject.transform.position = new Vector3(0, -4, 0);
+            gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+        }
+    }
+
+    void setScoreText()
+    {
+        scoreText.text = score.ToString();
     }
 }
