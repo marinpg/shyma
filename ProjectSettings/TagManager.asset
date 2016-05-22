@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boundaries
+  - Placeholder
+  - Organic
+  - Recycle
+  - Inorganic
   layers:
   - Default
   - TransparentFX
