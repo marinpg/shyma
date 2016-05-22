@@ -21,7 +21,12 @@ public class shootScript : MonoBehaviour {
         collision.enabled = false;
         rb.gravityScale = 0;
         isMoving = false;
-        score = 0;
+        if (scoreText.text == "Score Text")
+            score = 0;
+        else
+        {
+            score = int.Parse(scoreText.text);
+        }
         setScoreText();
     }
 
@@ -49,7 +54,7 @@ public class shootScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Placeholder"))
+        if (other.gameObject.tag == gameObject.tag)
         {
             score++;
             setScoreText();
@@ -60,6 +65,19 @@ public class shootScript : MonoBehaviour {
             rb.angularVelocity = 0;
             gameObject.transform.position = new Vector3(0, -4, 0);
             gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+        }
+
+        if (other.gameObject.CompareTag("Boundaries"))
+        {
+            score = 0;
+            setScoreText();
+            isMoving = false;
+            collision.enabled = false;
+            rb.gravityScale = 0;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0;
+            gameObject.transform.position = new Vector3(0, -4, 0);
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
     }
 
