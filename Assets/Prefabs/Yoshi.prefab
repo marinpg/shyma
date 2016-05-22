@@ -74,7 +74,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  collision: {fileID: 5829450}
+  trashTypes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  trashBins: []
   scoreText: {fileID: 0}
 --- !u!212 &21244854
 SpriteRenderer:
@@ -113,6 +117,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: trashTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scoreText
       value: 
