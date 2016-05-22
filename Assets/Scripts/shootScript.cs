@@ -92,9 +92,23 @@ public class shootScript : MonoBehaviour {
     {
         int type;
         type = Random.Range(0,2);
-        trashTypes[type].SetActive(true);
+        Debug.Log(type);
         gameObject.SetActive(false);
-        
+        trashTypes[type].SetActive(true);
+
     }
 
+    void enableBinCollision()
+    {
+    }
+
+    void disableBinCollision()
+    {
+
+    }
+
+    void OnBecameInvisible()
+    {
+        collision.enabled = true;
+    }
 }
