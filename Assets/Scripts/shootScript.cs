@@ -19,7 +19,7 @@ public class shootScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        
+
         rb = GetComponent<Rigidbody2D>();
         disableBinCollision();
         rb.gravityScale = 0;
@@ -58,7 +58,7 @@ public class shootScript : MonoBehaviour {
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
             currentSwipe.Normalize();
             rb.gravityScale = 1;
-            rb.AddForce(currentSwipe * 650*5);
+            rb.AddForce(currentSwipe * 650 *12    );
             isMoving = true;
         }
     }
@@ -134,7 +134,7 @@ public class shootScript : MonoBehaviour {
             bCol.enabled = false;
         }
     }
-    
+
     void switchTrashBins()
     {
         if (score%2==0)
