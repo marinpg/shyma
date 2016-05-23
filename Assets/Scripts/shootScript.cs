@@ -5,11 +5,11 @@ using System.Collections;
 public class shootScript : MonoBehaviour {
 
     public Rigidbody2D rb;
-    //public CircleCollider2D collision;
     private Vector2 firstPressPos;
     private Vector2 secondPressPos;
     private Vector2 currentSwipe;
     private bool isMoving;
+
 
     public GameObject[] trashTypes;
     public GameObject[] trashBins;
@@ -19,8 +19,8 @@ public class shootScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        
         rb = GetComponent<Rigidbody2D>();
-        //collision.enabled = false;
         disableBinCollision();
         rb.gravityScale = 0;
         isMoving = false;
@@ -70,7 +70,6 @@ public class shootScript : MonoBehaviour {
             score++;
             setScoreText();
             isMoving = false;
-            //collision.enabled = false;
             disableBinCollision();
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
@@ -78,13 +77,17 @@ public class shootScript : MonoBehaviour {
             gameObject.transform.position = new Vector3(0, -4, 0);
             gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
             switchTrashType();
+            if (score > 10)
+            {
+                switchTrashBins();
+            }
         }
         else if (other.gameObject.CompareTag("Boundaries") || other.gameObject.tag != gameObject.tag)
         {
             score = 0;
             setScoreText();
             isMoving = false;
-            //collision.enabled = false;
+
             disableBinCollision();
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
@@ -106,7 +109,6 @@ public class shootScript : MonoBehaviour {
         Debug.Log(type);
         gameObject.SetActive(false);
         trashTypes[type].SetActive(true);
-        //collision.enabled = false;
         disableBinCollision();
 
     }
@@ -132,9 +134,20 @@ public class shootScript : MonoBehaviour {
             bCol.enabled = false;
         }
     }
-
-    void OnBecameInvisible()
+    
+    void switchTrashBins()
     {
-        //collision.enabled = true;
+        if (score%2==0)
+        {
+            trashBins[0].transform.position = new Vector3(-4, 1.7f, 0);
+            trashBins[1].transform.position = new Vector3(0, 1.7f, 0);
+            trashBins[2].transform.position = new Vector3(4, 1.7f, 0);
+        }
+        else
+        {
+            trashBins[0].transform.position = new Vector3(0, 1.7f, 0);
+            trashBins[1].transform.position = new Vector3(4, 1.7f, 0);
+            trashBins[2].transform.position = new Vector3(-4, 1.7f, 0);
+        }
     }
 }
