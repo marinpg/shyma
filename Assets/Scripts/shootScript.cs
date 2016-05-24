@@ -160,15 +160,15 @@ public class shootScript : MonoBehaviour {
         source.PlayOneShot(switchBinSound, 1F);
         if (score%2==0)
         {
-            trashBins[0].transform.position = new Vector3(-4, 1.37f, 0);
-            trashBins[1].transform.position = new Vector3(0, 1.7f, 0);
-            trashBins[2].transform.position = new Vector3(4, 1.7f, 0);
+            trashBins[0].transform.position = new Vector3(-2.35f, 1.7f, 0);
+            trashBins[1].transform.position = new Vector3(0, 1.65f, 0);
+            trashBins[2].transform.position = new Vector3(4, 1.69f, 0);
         }
         else
         {
-            trashBins[0].transform.position = new Vector3(0, 1.37f, 0);
-            trashBins[1].transform.position = new Vector3(4, 1.7f, 0);
-            trashBins[2].transform.position = new Vector3(-4, 1.7f, 0);
+            trashBins[0].transform.position = new Vector3(0, 1.7f, 0);
+            trashBins[1].transform.position = new Vector3(2.35f, 1.65f, 0);
+            trashBins[2].transform.position = new Vector3(-2.35f, 1.69f, 0);
         }
     }
 }
