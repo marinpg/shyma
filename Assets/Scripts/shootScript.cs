@@ -16,6 +16,18 @@ public class shootScript : MonoBehaviour {
     public Text scoreText;
     private int score;
 
+    //sound
+    private AudioSource source;
+    public AudioClip enterBinSound;
+    public AudioClip shootSound;
+    public AudioClip bounceSound;
+    public AudioClip switchBinSound;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -54,11 +66,12 @@ public class shootScript : MonoBehaviour {
         }
         if (Input.GetMouseButtonUp(0) && !isMoving)
         {
+            source.PlayOneShot(shootSound, 1F);
             secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
             currentSwipe.Normalize();
             rb.gravityScale = 1;
-            rb.AddForce(currentSwipe * 650 *12    );
+            rb.AddForce(currentSwipe * 650 * 12);
             isMoving = true;
         }
     }
@@ -67,6 +80,7 @@ public class shootScript : MonoBehaviour {
     {
         if (other.gameObject.tag == gameObject.tag)
         {
+            source.PlayOneShot(enterBinSound, 1F);
             score++;
             setScoreText();
             isMoving = false;
@@ -84,6 +98,7 @@ public class shootScript : MonoBehaviour {
         }
         else if (other.gameObject.CompareTag("Boundaries") || other.gameObject.tag != gameObject.tag)
         {
+            
             score = 0;
             setScoreText();
             isMoving = false;
@@ -95,6 +110,11 @@ public class shootScript : MonoBehaviour {
             gameObject.transform.position = new Vector3(0, -4, 0);
             gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
+    }
+
+    void OnCollisionEnter2D()
+    {
+        source.PlayOneShot(bounceSound, 1F);
     }
 
     void setScoreText()
@@ -137,15 +157,16 @@ public class shootScript : MonoBehaviour {
 
     void switchTrashBins()
     {
+        source.PlayOneShot(switchBinSound, 1F);
         if (score%2==0)
         {
-            trashBins[0].transform.position = new Vector3(-4, 1.7f, 0);
+            trashBins[0].transform.position = new Vector3(-4, 1.37f, 0);
             trashBins[1].transform.position = new Vector3(0, 1.7f, 0);
             trashBins[2].transform.position = new Vector3(4, 1.7f, 0);
         }
         else
         {
-            trashBins[0].transform.position = new Vector3(0, 1.7f, 0);
+            trashBins[0].transform.position = new Vector3(0, 1.37f, 0);
             trashBins[1].transform.position = new Vector3(4, 1.7f, 0);
             trashBins[2].transform.position = new Vector3(-4, 1.7f, 0);
         }
