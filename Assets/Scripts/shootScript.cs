@@ -22,6 +22,7 @@ public class shootScript : MonoBehaviour {
     public AudioClip shootSound;
     public AudioClip bounceSound;
     public AudioClip switchBinSound;
+    public AudioClip loseSound;
 
     void Awake()
     {
@@ -31,6 +32,7 @@ public class shootScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
 
         rb = GetComponent<Rigidbody2D>();
         disableBinCollision();
@@ -71,7 +73,7 @@ public class shootScript : MonoBehaviour {
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
             currentSwipe.Normalize();
             rb.gravityScale = 1;
-            rb.AddForce(currentSwipe * 650 * 12);
+            rb.AddForce(currentSwipe * 660 * 11);
             isMoving = true;
         }
     }
@@ -80,8 +82,9 @@ public class shootScript : MonoBehaviour {
     {
         if (other.gameObject.tag == gameObject.tag)
         {
-            source.PlayOneShot(enterBinSound, 1F);
             score++;
+            source.PlayOneShot(enterBinSound, 1F);
+            Debug.Log("WHAT TEHF UCKmfsld,f;");
             setScoreText();
             isMoving = false;
             disableBinCollision();
@@ -98,7 +101,7 @@ public class shootScript : MonoBehaviour {
         }
         else if (other.gameObject.CompareTag("Boundaries") || other.gameObject.tag != gameObject.tag)
         {
-            
+            source.PlayOneShot(loseSound, 1F);
             score = 0;
             setScoreText();
             isMoving = false;
@@ -126,7 +129,6 @@ public class shootScript : MonoBehaviour {
     {
         int type;
         type = Random.Range(0,3);
-        Debug.Log(type);
         gameObject.SetActive(false);
         trashTypes[type].SetActive(true);
         disableBinCollision();
